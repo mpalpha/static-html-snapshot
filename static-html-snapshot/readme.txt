@@ -1,12 +1,15 @@
 === Static Snapshot ===
-Contributors: Jason Lusk
-Author link: http://jasonlusk.com
-Tags: static, snapshot, relative
-Requires at least: 4.3.1
-Tested up to: 4.9.5
-Stable tag: 0.0.1
-License: MIT License or later
-License URI: https://opensource.org/licenses/MIT
+Plugin Name:       Static HTML Snapshot
+Plugin URI:        http://localhost
+Description:       Create a static version of your WordPress site.
+Version:           1.2.0
+Author:            Jason Lusk, Anthony Allen
+Author URI:        http://jasonlusk.com
+Text Domain:       static-snapshot
+License:           GPL-2.0+
+License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
+Requires PHP:      7.0
+Requires WP:       4.7
 
 Download a fully functional static version of your WordPress website.
 
@@ -32,3 +35,23 @@ This plugin is a wrapper for the Linux/Unix wget application. Your server must u
 
 No, sorta. This plugin has been tested and works locally with Linux or Unix - but by all means, give it a go with wget for Windows (https://eternallybored.org/misc/wget/) and see what happens.
 Mac OS X users need wget installed - here's a guide: http://osxdaily.com/2012/05/22/install-wget-mac-os-x/
+
+== Screenshots ==
+
+1. Dashboard view
+
+== Changelog ==
+
+= 0.2.1 =
+* fixed pre-PHP 5.4 array index bug
+
+= 0.2.0 =
+* rudimentary CDN support
+* now supports HTML5 <video> tag
+
+= 0.1.0 =
+* first version for the WordPress Plugin Repository
+
+== We need you help! ==
+
+This is a BETA product with possible bugs. Please test this product and give us feedback (http://staticsnapshot.com/forums/forum/support-forum) so we can improve and release the version 1.0 as soon as possible!

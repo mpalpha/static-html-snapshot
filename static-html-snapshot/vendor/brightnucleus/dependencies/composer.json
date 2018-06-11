@@ -1,0 +1,24 @@
+{
+	"name": "brightnucleus/dependencies",
+	"description": "Config-driven WordPress dependencies.",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Alain Schlesser",
+			"email": "alain.schlesser@gmail.com"
+		}
+	],
+	"require": {
+		"brightnucleus/config": ">=0.2",
+		"brightnucleus/exceptions": ">=0.2",
+		"brightnucleus/invoker": ">=0.1",
+		"brightnucleus/contracts": ">=0.1"
+	},
+	"require-dev": {
+	},
+	"autoload": {
+		"psr-4": {
+			"BrightNucleus\\Dependency\\": "src/"
+		}
+	}
+}
