@@ -196,7 +196,7 @@ class File
         $output_path     = $this->pluginDir.'output/';
         $snapshot_path   = $output_path.$name;
         $site_domain     = parse_url(get_site_url(), PHP_URL_HOST);
-        $wget_command = 'wget -E -D'.$site_domain.' -k -N -p -P '.$this->pluginDir.'output ';
+        $wget_command = 'wget -e robots=off -E -D'.$site_domain.' -k -N -p -P '.$this->pluginDir.'output ';
         $copy_json_command = 'cp -R '.$theme_path.'/json '.$output_path.'/'.$static_site_dir.'/json ';
         $move_command = 'cd '.$output_path.' && mv '.$static_site_dir.' '.$name;
         $create_tar_command = 'cd '.$output_path.' && tar -cvf '.get_home_path().'/'.$name.'.tar '.$name;

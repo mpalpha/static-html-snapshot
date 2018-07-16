@@ -1,6 +1,5 @@
 === Static Snapshot ===
-Contributors: Hermes Development
-Donate link: http://staticsnapshot.com/donate/
+Contributors: Anthony Allen, Jason Lusk
 Tags: static, snapshot, relative
 Requires at least: 4.3.1
 Tested up to: 4.4.2
@@ -36,19 +35,3 @@ Mac OS X users need wget installed - here's a guide: http://osxdaily.com/2012/05
 == Screenshots ==
 
 1. Dashboard view
-
-== Changelog ==
-
-= 0.2.1 =
-* fixed pre-PHP 5.4 array index bug
-
-= 0.2.0 =
-* rudimentary CDN support
-* now supports HTML5 <video> tag
-
-= 0.1.0 =
-* first version for the WordPress Plugin Repository
-
-== We need you help! ==
-
-This is a BETA product with possible bugs. Please test this product and give us feedback (http://staticsnapshot.com/forums/forum/support-forum) so we can improve and release the version 1.0 as soon as possible!
