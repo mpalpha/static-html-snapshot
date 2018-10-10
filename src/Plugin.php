@@ -81,6 +81,7 @@ class Plugin
      */
     public function run()
     {
+        $this->iniPluginDB();
         add_action('admin_init', [$this, 'website_snapshot_admin_scripts']);
         add_action('plugins_loaded', [ $this, 'load_textdomain' ]);
         add_action('wp_ajax_create_snapshot', [ $this->FileObj, 'create_snapshot' ]);
@@ -125,5 +126,39 @@ class Plugin
         }
 
         load_plugin_textdomain($text_domain, false, $text_domain.'/'.$languages_dir);
+    }
+
+    public function iniPluginDB()
+    {
+        include_once ABSPATH.'wp-admin/includes/upgrade.php';
+        global $wpdb;
+        $table_name = 'wp_shs_snapshot';
+
+        // create table if none already exists
+        if ($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name) {
+            $sql = 'CREATE TABLE wp_shs_snapshot (
+                id INT UNSIGNED AUTO_INCREMENT,
+                name VARCHAR(200) UNIQUE NOT NULL,
+                creationDate DATETIME UNIQUE NOT NULL,
+                deployedDate DATETIME NULL,
+                PRIMARY KEY(id)
+            );';
+
+            dbDelta($sql);
+        }
+
+        $table_name = 'wp_shs_deploy_path';
+
+        // create table if none already exists
+        if ($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name) {
+            $sql = 'CREATE TABLE wp_shs_deploy_path (
+              id INT UNSIGNED AUTO_INCREMENT,
+              date_created DATETIME UNIQUE NOT NULL,
+              deploy_path VARCHAR(200) NOT NULL,
+              PRIMARY KEY(id)
+            );';
+
+            dbDelta($sql);
+        }
     }
 }

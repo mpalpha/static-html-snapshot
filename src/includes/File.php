@@ -40,6 +40,7 @@ class File
     /** @var string */
     public $pluginDir;
 
+    private $wgetCmd;
     /**
      * File Handler class constructor.
      */
@@ -196,24 +197,29 @@ class File
         $output_path     = $this->pluginDir.'output/';
         $snapshot_path   = $output_path.$name;
         $site_domain     = parse_url(get_site_url(), PHP_URL_HOST);
-        $wget_command = 'wget -e robots=off -E -D'.$site_domain.' -k -N -p -P '.$this->pluginDir.'output ';
-        $copy_json_command = 'cp -R '.$theme_path.'/json '.$output_path.'/'.$static_site_dir.'/json ';
+        $this->wgetCmd = 'wget -e robots=off -E -D'.$site_domain.' -k -N -p -P '.$this->pluginDir.'output ';
+
         $move_command = 'cd '.$output_path.' && mv '.$static_site_dir.' '.$name;
         $create_tar_command = 'cd '.$output_path.' && tar -cvf '.get_home_path().'/'.$name.'.tar '.$name;
         $delete_output_command = 'rm -rf '.$output_path;
         $output_result = '';
 
         if ($permalinks === []) {
-            $wget_command .= get_site_url();
+            $this->wgetCmd .= get_site_url();
         } else {
-            $wget_command .= get_site_url();
+            $this->wgetCmd .= get_site_url();
             for ($i = 0, $length = count($permalinks); $i < $length; $i++) {
-                $wget_command .= $i !== ($length - 1) ? $permalinks[$i].' ' : $permalinks[$i];
+                $this->wgetCmd .= $i !== ($length - 1) ? $permalinks[$i].' ' : $permalinks[$i];
             }
         }
 
-        $output_result .= '$wget_command:'.exec($wget_command, $output, $result);
-        $output_result .= '$copy_json_command:'.exec($copy_json_command, $output, $result);
+        $output_result .= '$this->wgetCmd:'.exec($this->wgetCmd, $output, $result);
+
+        if (is_dir($theme_path.'/json')) {
+            $copy_json_command = 'cp -R '.$theme_path.'/json '.$output_path.'/'.$static_site_dir.'/json ';
+            $output_result .= '$copy_json_command:'.exec($copy_json_command, $output, $result);
+        }
+
         $output_result .= '$move_command:'.exec($move_command, $output, $result);
 
         // rename dir
@@ -226,13 +232,11 @@ class File
         // create tar file
         $output_result .= '$delete_output_command:'.exec($delete_output_command, $output, $result);
 
-        // var_dump($copy_json_command);
-
         if ($result) {
             $resType = 'Error';
             $resData = [
                 'message' => 'Snapshot Generate Static Site failed check the following commands.',
-                'wget_cmd' => $wget_command,
+                'wget_cmd' => $this->wgetCmd,
                 'copy_json_command' => $copy_json_command,
                 'move_cmd' => $move_cmd,
                 'create_tar_command' => $create_tar_command,
