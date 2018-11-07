@@ -207,7 +207,7 @@ class File
         if ($permalinks === []) {
             $this->wgetCmd .= get_site_url();
         } else {
-            $this->wgetCmd .= get_site_url();
+            $this->wgetCmd .= get_site_url().' ';
             for ($i = 0, $length = count($permalinks); $i < $length; $i++) {
                 $this->wgetCmd .= $i !== ($length - 1) ? $permalinks[$i].' ' : $permalinks[$i];
             }
